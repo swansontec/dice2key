@@ -12,10 +12,8 @@ if [ ${#dice} -lt 100 ]; then
     echo "warning: The input has less than 100 dice rolls"
 fi
 
-# dc has a bug when going straight from base 6 to base 16, so first
-# convert to decimal. The eval fixes line-breaking in the output.
-eval "dec=$(dc -e6i${dice}p)"
-eval "hex=$(dc -e16o${dec}p)"
+# Convert from base 6 to base 16. The eval fixes line-breaking in the output.
+eval "hex=$(dc -e16o6i${dice}p)"
 
 # Print the last 64 hex digits of the output:
 echo $hex | sed -e 's/.*\(.\{64\}\)$/\1/'
